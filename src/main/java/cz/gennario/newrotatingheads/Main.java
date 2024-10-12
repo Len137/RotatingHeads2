@@ -1,6 +1,7 @@
 package cz.gennario.newrotatingheads;
 
 import com.comphenix.protocol.ProtocolLibrary;
+import cz.gennario.newrotatingheads.newstuff.Cooldowns;
 import cz.gennario.newrotatingheads.rotatingengine.actions.ActionsAPI;
 import cz.gennario.newrotatingheads.rotatingengine.conditions.ConditionsAPI;
 import cz.gennario.newrotatingheads.system.HeadInteraction;
@@ -50,6 +51,10 @@ public final class Main extends JavaPlugin {
         instance = this;
         log = new Logger(Main.getInstance());
         pluginUpdater = new PluginUpdater(2203, this);
+
+        // added cooldowns
+        getServer().getPluginManager().registerEvents(new Cooldowns(), instance);
+
         new Metrics(this, 18169)
                 .addCustomChart(new Metrics.SingleLineChart("heads_count", () -> getHeadsList().size()));
 
