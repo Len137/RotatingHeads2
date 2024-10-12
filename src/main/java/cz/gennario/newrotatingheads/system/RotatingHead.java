@@ -33,6 +33,9 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 
+import static cz.gennario.newrotatingheads.newstuff.Cooldowns.COOLDOWN_TIME;
+import static cz.gennario.newrotatingheads.newstuff.Cooldowns.ClickCooldown;
+
 @Getter
 @Setter
 public class RotatingHead {
@@ -451,21 +454,24 @@ public class RotatingHead {
     }
 
     public void checkActions(Player player, HeadInteraction.HeadClickType headClickType) {
-        if(tempHead) return;
+        if (tempHead) return;
         if (yamlDocument.contains("actions")) {
-            for (String clickType : yamlDocument.getSection("actions").getRoutesAsStrings(false)) {
-                if(clickType.contains("+")) {
-                    boolean contain = false;
-                    for (String s : clickType.split("\\+")) {
-                        if(s.equals(headClickType.name())) contain = true;
-                    }
-                    if(contain) {
+            if (ClickCooldown.get(player.getUniqueId()) + COOLDOWN_TIME < System.currentTimeMillis()) {
+                ClickCooldown.put(player.getUniqueId(), System.currentTimeMillis());
+                for (String clickType : yamlDocument.getSection("actions").getRoutesAsStrings(false)) {
+                    if (clickType.contains("+")) {
+                        boolean contain = false;
+                        for (String s : clickType.split("\\+")) {
+                            if (s.equals(headClickType.name())) contain = true;
+                        }
+                        if (contain) {
+                            Section section = yamlDocument.getSection("actions." + clickType);
+                            Main.getInstance().getActionsAPI().useAction(player, section);
+                        }
+                    } else if (clickType.toUpperCase().equals(headClickType.name()) || clickType.equalsIgnoreCase("ALL")) {
                         Section section = yamlDocument.getSection("actions." + clickType);
                         Main.getInstance().getActionsAPI().useAction(player, section);
                     }
-                }else if(clickType.toUpperCase().equals(headClickType.name()) || clickType.equalsIgnoreCase("ALL")) {
-                    Section section = yamlDocument.getSection("actions." + clickType);
-                    Main.getInstance().getActionsAPI().useAction(player, section);
                 }
             }
         }

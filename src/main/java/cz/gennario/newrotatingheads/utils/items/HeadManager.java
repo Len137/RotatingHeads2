@@ -79,7 +79,11 @@ public final class HeadManager {
         SkullMeta meta = (SkullMeta) head.getItemMeta();
 
         // If the Minecraft version is 1.18.1 or higher, use the new API methods.
-        int version = Integer.parseInt(Bukkit.getServer().getClass().getName().split("\\.")[3].split("_")[1]);
+        //int version = Integer.parseInt(Bukkit.getServer().getClass().getName().split("\\.")[3].split("_")[1]);
+
+
+        //TODO: Add proper fix, this is temporary
+        int version = 69;
         if (version >= 18) {
             String skinJson = new String(Base64.getDecoder().decode(base64));
             JsonObject skinObject = new JsonParser().parse(skinJson).getAsJsonObject();
