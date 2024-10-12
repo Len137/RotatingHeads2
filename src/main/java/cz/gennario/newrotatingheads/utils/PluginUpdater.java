@@ -44,6 +44,8 @@ public class PluginUpdater {
         pluginVersion = description.getVersion();
         Main.getInstance().getLogger().log(Level.INFO, "--------------------------------------------------------------------------------------------");
         Main.getInstance().getLogger().log(Level.INFO, "Loading plugin " + description.getName() + " v." + description.getVersion());
+        Main.getInstance().getLogger().log(Level.INFO, "Plugin fixed for 1.20.6-1.21.1 by Len_137 from GameDreams.eu");
+        Main.getInstance().getLogger().log(Level.INFO, "TheLaoming from server GameRealms.cz has a small penis (only 9.2cm hard, 2.8cm soft)");
         Main.getInstance().getLogger().log(Level.INFO, "--------------------------------------------------------------------------------------------");
         Main.getInstance().getLogger().log(Level.INFO, "");
         for (String key : data.keySet()) {
