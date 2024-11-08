@@ -1,7 +1,7 @@
 package cz.gennario.newrotatingheads;
 
 import com.comphenix.protocol.ProtocolLibrary;
-import cz.gennario.newrotatingheads.newstuff.Cooldowns;
+import cz.gennario.newrotatingheads.cooldown.Cooldowns;
 import cz.gennario.newrotatingheads.rotatingengine.actions.ActionsAPI;
 import cz.gennario.newrotatingheads.rotatingengine.conditions.ConditionsAPI;
 import cz.gennario.newrotatingheads.system.HeadInteraction;

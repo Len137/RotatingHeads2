@@ -3,6 +3,7 @@ package cz.gennario.newrotatingheads.system;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.Pair;
 import cz.gennario.newrotatingheads.Main;
+import cz.gennario.newrotatingheads.cooldown.Cooldowns;
 import cz.gennario.newrotatingheads.developer.events.*;
 import cz.gennario.newrotatingheads.rotatingengine.HeadEquipmentValue;
 import cz.gennario.newrotatingheads.rotatingengine.PacketArmorStand;
@@ -33,8 +34,7 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 
-import static cz.gennario.newrotatingheads.newstuff.Cooldowns.COOLDOWN_TIME;
-import static cz.gennario.newrotatingheads.newstuff.Cooldowns.ClickCooldown;
+
 
 @Getter
 @Setter
@@ -456,8 +456,8 @@ public class RotatingHead {
     public void checkActions(Player player, HeadInteraction.HeadClickType headClickType) {
         if (tempHead) return;
         if (yamlDocument.contains("actions")) {
-            if (ClickCooldown.get(player.getUniqueId()) + COOLDOWN_TIME < System.currentTimeMillis()) {
-                ClickCooldown.put(player.getUniqueId(), System.currentTimeMillis());
+            if (!Cooldowns.isCooldown(player.getUniqueId())) {
+                Cooldowns.resetCooldown(player.getUniqueId());
                 for (String clickType : yamlDocument.getSection("actions").getRoutesAsStrings(false)) {
                     if (clickType.contains("+")) {
                         boolean contain = false;
