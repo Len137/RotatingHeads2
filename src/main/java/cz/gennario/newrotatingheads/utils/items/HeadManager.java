@@ -83,7 +83,7 @@ public final class HeadManager {
 
 
         //TODO: Check for all supported versions
-        int version = Integer.parseInt(Bukkit.getServer().getBukkitVersion().replaceAll("^\\d+\\.(\\d+)\\.\\d+.*$", "$1"));
+        int version = Integer.parseInt(Bukkit.getServer().getBukkitVersion().replaceAll("^(?:\\d+\\.)?(\\d+)(?:\\.[^\\s-]*)?.*$", "$1"));
         if (version >= 18) {
             String skinJson = new String(Base64.getDecoder().decode(base64));
             JsonObject skinObject = new JsonParser().parse(skinJson).getAsJsonObject();
